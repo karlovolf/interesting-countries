@@ -1,13 +1,18 @@
 import { useState, useMemo } from 'react';
 import { useGetAllCountriesQuery } from '@/api/endpoints/countries';
-import { SearchInput } from '@/components/search';
+import { SearchInput, SearchFilters, FilterBadges, type SearchFiltersState } from '@/components/search';
 import {
-  filterCountriesBySearch,
+  applyAllFilters,
   getSearchResultsCount,
 } from '@/lib/country-filters';
 
-const App = () => {
+const App = (): React.ReactElement => {
   const [searchTerm, setSearchTerm] = useState('');
+  const [filters, setFilters] = useState<SearchFiltersState>({
+    region: 'All',
+    subregion: 'All',
+    population: 'All',
+  });
 
   const {
     data: countries,
@@ -15,11 +20,11 @@ const App = () => {
     isLoading,
   } = useGetAllCountriesQuery(undefined);
 
-  // Filter countries based on search term
+  // Filter countries based on search term and filters
   const filteredCountries = useMemo(() => {
     if (!countries) return [];
-    return filterCountriesBySearch(countries, searchTerm);
-  }, [countries, searchTerm]);
+    return applyAllFilters(countries, searchTerm, filters);
+  }, [countries, searchTerm, filters]);
 
   const resultsText = useMemo(() => {
     if (!countries) return '';
@@ -29,6 +34,21 @@ const App = () => {
       searchTerm
     );
   }, [countries, filteredCountries.length, searchTerm]);
+
+  const handleFilterRemove = (filterKey: keyof SearchFiltersState): void => {
+    setFilters(prevFilters => ({
+      ...prevFilters,
+      [filterKey]: 'All',
+    }));
+  };
+
+  const clearAllFilters = (): void => {
+    setFilters({
+      region: 'All',
+      subregion: 'All',
+      population: 'All',
+    });
+  };
 
   if (isLoading) {
     return (
@@ -54,16 +74,33 @@ const App = () => {
       <header className='mb-8'>
         <h1 className='text-3xl font-bold mb-6'>World Countries Explorer</h1>
 
-        <div className='flex flex-col gap-4 md:flex-row md:items-center md:justify-between'>
-          <div className='flex-1 max-w-md'>
-            <SearchInput
-              value={searchTerm}
-              onChange={setSearchTerm}
-              placeholder='Search countries, capitals, or regions...'
-            />
+        <div className='space-y-6'>
+          <div className='flex flex-col gap-4 md:flex-row md:items-center md:justify-between'>
+            <div className='flex items-center gap-3 flex-1'>
+              <div className='flex-1 max-w-md'>
+                <SearchInput
+                  value={searchTerm}
+                  onChange={setSearchTerm}
+                  placeholder='Search countries, capitals, or regions...'
+                />
+              </div>
+              {countries && (
+                <SearchFilters
+                  countries={countries}
+                  filters={filters}
+                  onFiltersChange={setFilters}
+                />
+              )}
+            </div>
+
+            <div className='text-sm text-muted-foreground'>{resultsText}</div>
           </div>
 
-          <div className='text-sm text-muted-foreground'>{resultsText}</div>
+          <FilterBadges
+            filters={filters}
+            onFilterRemove={handleFilterRemove}
+            onClearAll={clearAllFilters}
+          />
         </div>
       </header>
 
