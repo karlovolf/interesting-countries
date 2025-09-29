@@ -26,7 +26,16 @@ export default defineConfig([
       // TypeScript strict rules
       '@typescript-eslint/no-explicit-any': 'error',
       '@typescript-eslint/no-unused-vars': 'error',
-      '@typescript-eslint/explicit-function-return-type': 'warn',
+      '@typescript-eslint/explicit-function-return-type': [
+        'warn',
+        {
+          allowExpressions: true,
+          allowTypedFunctionExpressions: true,
+          allowHigherOrderFunctions: true,
+          allowDirectConstAssertionInArrowFunctions: true,
+          allowConciseArrowFunctionExpressionsStartingWithVoid: true,
+        },
+      ],
       '@typescript-eslint/no-non-null-assertion': 'error',
       'prefer-const': 'error',
 
@@ -38,6 +47,10 @@ export default defineConfig([
       'no-debugger': 'error',
       'no-alert': 'error',
       'no-commented-out-code': 'off',
+
+      // Function style rules
+      'func-style': ['error', 'expression', { allowArrowFunctions: true }],
+      'prefer-arrow-callback': ['error', { allowNamedFunctions: false }],
 
       // React specific rules
       'react-hooks/exhaustive-deps': 'error',
@@ -66,6 +79,14 @@ export default defineConfig([
           format: ['camelCase', 'UPPER_CASE', 'PascalCase'],
         },
       ],
+    },
+  },
+  // Exception for shadcn/ui components
+  {
+    files: ['**/components/ui/**/*.{ts,tsx}'],
+    rules: {
+      'func-style': 'off',
+      '@typescript-eslint/explicit-function-return-type': 'off',
     },
   },
 ]);
