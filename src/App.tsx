@@ -1,6 +1,9 @@
 import { useState, useMemo } from 'react';
-import { useGetAllCountriesQuery } from '@/api/endpoints/countries';
+import { useGetAllCountriesQuery, type Country } from '@/api/endpoints/countries';
 import { SearchInput, SearchFilters, FilterBadges, type SearchFiltersState } from '@/components/search';
+import { WorldMap } from '@/components/world-map';
+import { CountryList } from '@/components/country-list';
+import { CountryDetailModal } from '@/components/country-detail-modal';
 import {
   applyAllFilters,
   getSearchResultsCount,
@@ -13,6 +16,8 @@ const App = (): React.ReactElement => {
     subregion: 'All',
     population: 'All',
   });
+  const [selectedCountry, setSelectedCountry] = useState<Country | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const {
     data: countries,
@@ -48,6 +53,16 @@ const App = (): React.ReactElement => {
       subregion: 'All',
       population: 'All',
     });
+  };
+
+  const handleCountryClick = (country: Country): void => {
+    setSelectedCountry(country);
+    setIsModalOpen(true);
+  };
+
+  const handleModalClose = (): void => {
+    setIsModalOpen(false);
+    setSelectedCountry(null);
   };
 
   if (isLoading) {
@@ -104,67 +119,29 @@ const App = (): React.ReactElement => {
         </div>
       </header>
 
-      {filteredCountries.length === 0 && searchTerm ? (
-        <div className='flex flex-col items-center justify-center py-12'>
-          <div className='text-xl text-muted-foreground mb-2'>
-            No countries found
-          </div>
-          <div className='text-sm text-muted-foreground'>
-            Try searching for a different country, capital, or region
-          </div>
-        </div>
-      ) : (
-        <>
-          <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 mb-6'>
-            {filteredCountries.slice(0, 20).map(country => (
-              <div
-                key={country.name.common}
-                className='border rounded-lg p-4 shadow-sm hover:shadow-md transition-shadow'
-              >
-                <div className='flex items-center gap-3 mb-2'>
-                  <img
-                    src={country.flags.png}
-                    alt={country.flags.alt || `Flag of ${country.name.common}`}
-                    className='w-8 h-6 object-cover rounded'
-                  />
-                  <h3 className='font-semibold text-lg'>
-                    {country.name.common}
-                  </h3>
-                </div>
-
-                <div className='space-y-1 text-sm text-gray-600'>
-                  <p>
-                    <span className='font-medium'>Capital:</span>{' '}
-                    {country.capital?.[0] || 'N/A'}
-                  </p>
-                  <p>
-                    <span className='font-medium'>Population:</span>{' '}
-                    {country.population.toLocaleString()}
-                  </p>
-                  <p>
-                    <span className='font-medium'>Region:</span>{' '}
-                    {country.region}
-                  </p>
-                  {country.subregion && (
-                    <p>
-                      <span className='font-medium'>Subregion:</span>{' '}
-                      {country.subregion}
-                    </p>
-                  )}
-                </div>
-              </div>
-            ))}
-          </div>
-
-          {filteredCountries.length > 20 && (
-            <div className='text-center py-4'>
-              <p className='text-muted-foreground'>
-                Showing first 20 of {filteredCountries.length} results
-              </p>
-            </div>
-          )}
-        </>
+      {/* World Map */}
+      {countries && (
+        <WorldMap
+          countries={countries}
+          filteredCountries={filteredCountries}
+          onCountryClick={handleCountryClick}
+          className="mb-8"
+        />
       )}
+
+      <CountryList
+        countries={filteredCountries}
+        searchTerm={searchTerm}
+        onCountryClick={handleCountryClick}
+        maxItems={20}
+      />
+
+      {/* Country Detail Modal */}
+      <CountryDetailModal
+        country={selectedCountry}
+        isOpen={isModalOpen}
+        onClose={handleModalClose}
+      />
     </div>
   );
 };

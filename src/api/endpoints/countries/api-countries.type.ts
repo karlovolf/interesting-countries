@@ -36,6 +36,9 @@ export interface Country {
   borders?: string[];
   area: number;
   latlng: number[]; // latitude and longitude coordinates
+  cca2: string; // ISO 3166-1 alpha-2 country code
+  cca3: string; // ISO 3166-1 alpha-3 country code
+  cioc?: string; // International Olympic Committee country code
 }
 
 // API Response type
