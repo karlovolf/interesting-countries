@@ -1,9 +1,9 @@
-import type { Country } from '@/api/endpoints/countries';
+import type { CountryBasic } from '@/api/endpoints/countries';
 
 export interface WorldMapProps {
-  countries: Country[];
-  filteredCountries: Country[];
-  onCountryClick?: (country: Country) => void;
+  countries: CountryBasic[];
+  filteredCountries: CountryBasic[];
+  onCountryClick?: (country: CountryBasic) => void;
   className?: string;
 }
 

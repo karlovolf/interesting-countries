@@ -1,10 +1,18 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import type { CountriesApiResponse, Region } from './api-countries.type';
+import type {
+  CountriesBasicResponse,
+  CountriesApiResponse,
+  CountryDetailResponse,
+  Region
+} from './api-countries.type';
 
 const BASE_URL = 'https://restcountries.com/v3.1';
 
-const FIELDS =
-  'name,capital,population,region,subregion,flags,currencies,languages,borders,area,latlng,cca2,cca3,cioc';
+// Basic fields for list/map view
+const BASIC_FIELDS = 'name,capital,population,region,subregion,flags,cca2,cca3,latlng';
+
+// All fields for detailed view
+const ALL_FIELDS = 'name,capital,population,region,subregion,flags,currencies,languages,borders,area,latlng,cca2,cca3,cioc';
 
 export const countriesApi = createApi({
   reducerPath: 'countriesApi',
@@ -13,6 +21,19 @@ export const countriesApi = createApi({
   }),
   tagTypes: ['Countries'],
   endpoints: builder => ({
+    // Basic country data for list/map view
+    getAllCountriesBasic: builder.query<CountriesBasicResponse, undefined>({
+      query: () => `independent?status=true`,
+      providesTags: ['Countries'],
+    }),
+
+    // Full country details for individual country view
+    getCountryDetail: builder.query<CountryDetailResponse, string>({
+      query: countryCode => `alpha/${countryCode}`,
+      providesTags: ['Countries'],
+    }),
+
+    // Keep existing endpoints for compatibility
     getAllCountries: builder.query<CountriesApiResponse, undefined>({
       query: () => `independent?status=true`,
       providesTags: ['Countries'],
@@ -39,6 +60,8 @@ export const countriesApi = createApi({
 });
 
 export const {
+  useGetAllCountriesBasicQuery,
+  useGetCountryDetailQuery,
   useGetAllCountriesQuery,
   useGetCountriesByRegionQuery,
   useGetCountryByNameQuery,

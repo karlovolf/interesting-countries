@@ -1,5 +1,5 @@
 import { useState, useMemo } from 'react';
-import { useGetAllCountriesQuery, type Country } from '@/api/endpoints/countries';
+import { useGetAllCountriesBasicQuery, type CountryBasic } from '@/api/endpoints/countries';
 import { SearchInput, SearchFilters, FilterBadges, type SearchFiltersState } from '@/components/search';
 import { WorldMap } from '@/components/world-map';
 import { CountryList } from '@/components/country-list';
@@ -16,18 +16,18 @@ const App = (): React.ReactElement => {
     subregion: 'All',
     population: 'All',
   });
-  const [selectedCountry, setSelectedCountry] = useState<Country | null>(null);
+  const [selectedCountry, setSelectedCountry] = useState<CountryBasic | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const {
     data: countries,
     error,
     isLoading,
-  } = useGetAllCountriesQuery(undefined);
+  } = useGetAllCountriesBasicQuery(undefined);
 
   // Filter countries based on search term and filters
   const filteredCountries = useMemo(() => {
-    if (!countries) return [];
+    if (!countries || countries.length === 0) return [];
     return applyAllFilters(countries, searchTerm, filters);
   }, [countries, searchTerm, filters]);
 
@@ -55,7 +55,7 @@ const App = (): React.ReactElement => {
     });
   };
 
-  const handleCountryClick = (country: Country): void => {
+  const handleCountryClick = (country: CountryBasic): void => {
     setSelectedCountry(country);
     setIsModalOpen(true);
   };
@@ -120,7 +120,7 @@ const App = (): React.ReactElement => {
       </header>
 
       {/* World Map */}
-      {countries && (
+      {countries && countries.length > 0 && (
         <WorldMap
           countries={countries}
           filteredCountries={filteredCountries}
@@ -129,12 +129,14 @@ const App = (): React.ReactElement => {
         />
       )}
 
-      <CountryList
-        countries={filteredCountries}
-        searchTerm={searchTerm}
-        onCountryClick={handleCountryClick}
-        maxItems={20}
-      />
+      {countries && countries.length > 0 && (
+        <CountryList
+          countries={filteredCountries}
+          searchTerm={searchTerm}
+          onCountryClick={handleCountryClick}
+          maxItems={20}
+        />
+      )}
 
       {/* Country Detail Modal */}
       <CountryDetailModal

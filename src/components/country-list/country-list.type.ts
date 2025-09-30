@@ -1,9 +1,9 @@
-import type { Country } from '@/api/endpoints/countries';
+import type { CountryBasic } from '@/api/endpoints/countries';
 
 export interface CountryListProps {
-  countries: Country[];
+  countries: CountryBasic[];
   searchTerm?: string;
-  onCountryClick?: (country: Country) => void;
+  onCountryClick?: (country: CountryBasic) => void;
   maxItems?: number;
   className?: string;
 }

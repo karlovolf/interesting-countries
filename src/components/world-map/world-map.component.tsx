@@ -5,6 +5,7 @@ import {
   Geography,
   ZoomableGroup,
 } from 'react-simple-maps';
+import type { CountryBasic } from '@/api/endpoints/countries';
 import type { WorldMapProps } from './world-map.type';
 
 export const WorldMap = ({
@@ -19,8 +20,8 @@ export const WorldMap = ({
     const map = new Map();
     countries.forEach(country => {
       // Add multiple mapping variations for better matching
-      map.set(country.cca2?.toLowerCase(), country);
-      map.set(country.cca3?.toLowerCase(), country);
+      map.set(country.cca2.toLowerCase(), country);
+      map.set(country.cca3.toLowerCase(), country);
       map.set(country.name.common.toLowerCase(), country);
       map.set(country.name.official.toLowerCase(), country);
 
@@ -42,8 +43,8 @@ export const WorldMap = ({
   const filteredCountryCodes = useMemo(() => {
     const codes = new Set();
     filteredCountries.forEach(country => {
-      codes.add(country.cca2?.toLowerCase());
-      codes.add(country.cca3?.toLowerCase());
+      codes.add(country.cca2.toLowerCase());
+      codes.add(country.cca3.toLowerCase());
       codes.add(country.name.common.toLowerCase());
       codes.add(country.name.official.toLowerCase());
     });

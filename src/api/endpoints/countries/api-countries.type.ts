@@ -23,26 +23,33 @@ export interface CountryCurrencies {
   [currencyCode: string]: CountryCurrency;
 }
 
-// Main Country interface matching REST Countries API response
-export interface Country {
+// Basic Country interface for list/map view (minimal data)
+export interface CountryBasic {
   name: CountryName;
   capital?: string[];
   population: number;
   region: string;
   subregion?: string;
-  flags: CountryFlags;
+  flags?: CountryFlags;
+  cca2: string; // ISO 3166-1 alpha-2 country code
+  cca3: string; // ISO 3166-1 alpha-3 country code
+  latlng: number[]; // latitude and longitude coordinates for map
+}
+
+// Full Country interface for detailed view
+export interface Country extends CountryBasic {
+  flags: CountryFlags; // Flags should always be present in full details
   currencies?: CountryCurrencies;
   languages?: CountryLanguages;
   borders?: string[];
   area: number;
-  latlng: number[]; // latitude and longitude coordinates
-  cca2: string; // ISO 3166-1 alpha-2 country code
-  cca3: string; // ISO 3166-1 alpha-3 country code
   cioc?: string; // International Olympic Committee country code
 }
 
-// API Response type
+// API Response types
+export type CountriesBasicResponse = CountryBasic[];
 export type CountriesApiResponse = Country[];
+export type CountryDetailResponse = Country;
 
 // Filter and Search Types
 export type Region = 'Africa' | 'Americas' | 'Asia' | 'Europe' | 'Oceania' | 'All';

@@ -22,13 +22,13 @@ export const CountryCard = ({
   };
 
   const getCurrencyString = (): string => {
-    if (!country.currencies) return 'N/A';
+    if (!('currencies' in country) || !country.currencies) return 'N/A';
     const currencies = Object.values(country.currencies);
     return currencies.map(currency => `${currency.name} (${currency.symbol})`).join(', ');
   };
 
   const getLanguageString = (): string => {
-    if (!country.languages) return 'N/A';
+    if (!('languages' in country) || !country.languages) return 'N/A';
     return Object.values(country.languages).join(', ');
   };
 
@@ -56,11 +56,13 @@ export const CountryCard = ({
       {/* Flag and Country Name Header */}
       <div className="p-4 border-b bg-gradient-to-r from-slate-50 to-white rounded-t-lg">
         <div className="flex items-center gap-3 mb-2">
-          <img
-            src={country.flags.png}
-            alt={country.flags.alt || `Flag of ${country.name.common}`}
-            className="w-10 h-7 object-cover rounded shadow-sm border"
-          />
+          {country.flags?.png && (
+            <img
+              src={country.flags.png}
+              alt={country.flags.alt || `Flag of ${country.name.common}`}
+              className="w-10 h-7 object-cover rounded shadow-sm border"
+            />
+          )}
           <div className="flex-1 min-w-0">
             <h3
               className="font-semibold text-lg text-gray-900 truncate group-hover:text-blue-600 transition-colors"
@@ -131,17 +133,19 @@ export const CountryCard = ({
 
         {/* Additional Info */}
         <div className="pt-2 border-t space-y-2">
-          <div className="text-xs text-gray-600">
-            <span className="font-medium">Area:</span> {formatArea(country.area)} km²
-          </div>
+          {'area' in country && country.area && (
+            <div className="text-xs text-gray-600">
+              <span className="font-medium">Area:</span> {formatArea(country.area)} km²
+            </div>
+          )}
 
-          {country.currencies && (
+          {'currencies' in country && country.currencies && (
             <div className="text-xs text-gray-600">
               <span className="font-medium">Currency:</span> {getCurrencyString()}
             </div>
           )}
 
-          {country.languages && (
+          {'languages' in country && country.languages && (
             <div className="text-xs text-gray-600">
               <span className="font-medium">Languages:</span> {getLanguageString()}
             </div>

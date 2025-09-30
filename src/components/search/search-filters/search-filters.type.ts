@@ -1,4 +1,4 @@
-import type { Country } from '@/api/endpoints/countries';
+import type { CountryBasic } from '@/api/endpoints/countries';
 
 export interface PopulationRange {
   min: number;
@@ -13,7 +13,7 @@ export interface SearchFiltersState {
 }
 
 export interface SearchFiltersProps {
-  countries: Country[];
+  countries: CountryBasic[];
   filters: SearchFiltersState;
   onFiltersChange: (filters: SearchFiltersState) => void;
 }

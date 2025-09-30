@@ -1,8 +1,8 @@
-import type { Country } from '@/api/endpoints/countries';
+import type { CountryBasic } from '@/api/endpoints/countries';
 
 export interface CountryCardProps {
-  country: Country;
+  country: CountryBasic;
   searchTerm?: string;
-  onClick?: (country: Country) => void;
+  onClick?: (country: CountryBasic) => void;
   className?: string;
 }

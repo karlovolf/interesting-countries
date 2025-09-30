@@ -1,10 +1,10 @@
-import type { Country } from '@/api/endpoints/countries';
+import type { CountryBasic } from '@/api/endpoints/countries';
 import { POPULATION_RANGES, type SearchFiltersState } from '@/components/search';
 
 export const filterCountriesBySearch = (
-  countries: Country[],
+  countries: CountryBasic[],
   searchTerm: string
-): Country[] => {
+): CountryBasic[] => {
   if (!searchTerm.trim()) return countries;
 
   const lowercaseSearch = searchTerm.toLowerCase();
@@ -27,8 +27,8 @@ export const filterCountriesBySearch = (
 
     // Search in country codes
     const matchesCodes =
-      country.cca2?.toLowerCase().includes(lowercaseSearch) ||
-      country.cca3?.toLowerCase().includes(lowercaseSearch);
+      country.cca2.toLowerCase().includes(lowercaseSearch) ||
+      country.cca3.toLowerCase().includes(lowercaseSearch);
 
     return matchesName || matchesCapital || matchesRegion || matchesCodes;
   });
@@ -58,9 +58,9 @@ export const getSearchResultsCount = (
 };
 
 export const filterCountriesByFilters = (
-  countries: Country[],
+  countries: CountryBasic[],
   filters: SearchFiltersState
-): Country[] => {
+): CountryBasic[] => {
   return countries.filter(country => {
     // Region filter
     if (filters.region !== 'All' && country.region !== filters.region) {
@@ -93,10 +93,10 @@ export const filterCountriesByFilters = (
 };
 
 export const applyAllFilters = (
-  countries: Country[],
+  countries: CountryBasic[],
   searchTerm: string,
   filters: SearchFiltersState
-): Country[] => {
+): CountryBasic[] => {
   // First apply filters
   let filteredCountries = filterCountriesByFilters(countries, filters);
 
