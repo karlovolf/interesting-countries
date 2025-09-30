@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
+  <!-- Globe background -->
+  <circle cx="16" cy="16" r="15" fill="#3b82f6" stroke="#1e40af" stroke-width="2"/>
+
+  <!-- Globe grid lines -->
+  <!-- Horizontal lines -->
+  <ellipse cx="16" cy="16" rx="13" ry="4" fill="none" stroke="#ffffff" stroke-width="1" opacity="0.3"/>
+  <ellipse cx="16" cy="16" rx="13" ry="8" fill="none" stroke="#ffffff" stroke-width="1" opacity="0.3"/>
+
+  <!-- Vertical lines -->
+  <path d="M16 3 Q20 16 16 29 Q12 16 16 3" fill="none" stroke="#ffffff" stroke-width="1" opacity="0.3"/>
+  <path d="M16 3 Q24 16 16 29 Q8 16 16 3" fill="none" stroke="#ffffff" stroke-width="1" opacity="0.3"/>
+
+  <!-- Letter "i" for information -->
+  <g fill="#ffffff">
+    <!-- Dot of "i" -->
+    <circle cx="16" cy="10" r="1.5"/>
+    <!-- Stem of "i" -->
+    <rect x="14.5" y="13" width="3" height="8" rx="1.5"/>
+  </g>
+</svg>
