@@ -210,7 +210,6 @@ export const WorldMap = ({
           </ZoomableGroup>
         </ComposableMap>
 
-        {/* Hover tooltip */}
         {hoveredCountry && (
           <div className='absolute top-6 left-6 bg-gray-100 bg-opacity-20 text-black px-3 py-2 rounded-lg text-xs font-medium pointer-events-none z-10'>
             {hoveredCountry}

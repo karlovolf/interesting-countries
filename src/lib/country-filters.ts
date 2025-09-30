@@ -1,5 +1,8 @@
 import type { Country } from '@/api/endpoints/countries';
-import { POPULATION_RANGES, type SearchFiltersState } from '@/components/search';
+import {
+  POPULATION_RANGES,
+  type SearchFiltersState,
+} from '@/components/search';
 
 export const filterCountriesBySearch = (
   countries: Country[],
@@ -34,7 +37,10 @@ export const filterCountriesBySearch = (
   });
 };
 
-export const highlightSearchTerm = (text: string, searchTerm: string): string => {
+export const highlightSearchTerm = (
+  text: string,
+  searchTerm: string
+): string => {
   if (!searchTerm.trim()) return text;
 
   const regex = new RegExp(`(${searchTerm})`, 'gi');
@@ -82,7 +88,10 @@ export const filterCountriesByFilters = (
       );
       if (populationRange) {
         const population = country.population;
-        if (population < populationRange.min || population > populationRange.max) {
+        if (
+          population < populationRange.min ||
+          population > populationRange.max
+        ) {
           return false;
         }
       }

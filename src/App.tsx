@@ -1,13 +1,18 @@
 import { useState, useMemo } from 'react';
-import { useGetAllCountriesQuery, type Country } from '@/api/endpoints/countries';
-import { SearchInput, SearchFilters, FilterBadges, type SearchFiltersState } from '@/components/search';
+import {
+  useGetAllCountriesQuery,
+  type Country,
+} from '@/api/endpoints/countries';
+import {
+  SearchInput,
+  SearchFilters,
+  FilterBadges,
+  type SearchFiltersState,
+} from '@/components/search';
 import { WorldMap } from '@/components/world-map';
 import { CountryList } from '@/components/country-list';
 import { CountryDetailModal } from '@/components/country-detail-modal';
-import {
-  applyAllFilters,
-  getSearchResultsCount,
-} from '@/lib/country-filters';
+import { applyAllFilters, getSearchResultsCount } from '@/lib/country-filters';
 
 const App = (): React.ReactElement => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -25,7 +30,6 @@ const App = (): React.ReactElement => {
     isLoading,
   } = useGetAllCountriesQuery(undefined);
 
-  // Filter countries based on search term and filters
   const filteredCountries = useMemo(() => {
     if (!countries) return [];
     return applyAllFilters(countries, searchTerm, filters);
@@ -119,13 +123,12 @@ const App = (): React.ReactElement => {
         </div>
       </header>
 
-      {/* World Map */}
       {countries && (
         <WorldMap
           countries={countries}
           filteredCountries={filteredCountries}
           onCountryClick={handleCountryClick}
-          className="mb-8"
+          className='mb-8'
         />
       )}
 
@@ -136,7 +139,6 @@ const App = (): React.ReactElement => {
         maxItems={20}
       />
 
-      {/* Country Detail Modal */}
       <CountryDetailModal
         country={selectedCountry}
         isOpen={isModalOpen}

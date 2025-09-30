@@ -44,36 +44,36 @@ export const FilterBadges = ({
   }
 
   return (
-    <div className="flex flex-wrap items-center gap-2">
-      <span className="text-xs text-muted-foreground">Active filters:</span>
+    <div className='flex flex-wrap items-center gap-2'>
+      <span className='text-xs text-muted-foreground'>Active filters:</span>
 
       {activeBadges.map(badge => (
         <Badge
           key={badge.key}
-          variant="secondary"
-          className="gap-1 pr-1 hover:bg-secondary/80 cursor-pointer"
+          variant='secondary'
+          className='gap-1 pr-1 hover:bg-secondary/80 cursor-pointer'
         >
-          <span className="text-xs">
+          <span className='text-xs'>
             {badge.label}: {badge.value}
           </span>
           <Button
-            variant="ghost"
-            size="sm"
-            className="h-3 w-3 p-0 text-muted-foreground hover:bg-muted hover:text-foreground rounded-full transition-colors"
+            variant='ghost'
+            size='sm'
+            className='h-3 w-3 p-0 text-muted-foreground hover:bg-muted hover:text-foreground rounded-full transition-colors'
             onClick={() => onFilterRemove(badge.key)}
             aria-label={`Remove ${badge.label} filter`}
           >
-            <X className="h-2 w-2" />
+            <X className='h-2 w-2' />
           </Button>
         </Badge>
       ))}
 
       {activeBadges.length > 1 && (
         <Button
-          variant="ghost"
-          size="sm"
+          variant='ghost'
+          size='sm'
           onClick={onClearAll}
-          className="h-6 px-2 text-xs text-muted-foreground hover:text-foreground"
+          className='h-6 px-2 text-xs text-muted-foreground hover:text-foreground'
         >
           Clear all
         </Button>

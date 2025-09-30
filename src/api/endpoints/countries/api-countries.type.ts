@@ -1,4 +1,3 @@
-// REST Countries API Response Types
 export interface CountryName {
   common: string;
   official: string;
@@ -23,7 +22,6 @@ export interface CountryCurrencies {
   [currencyCode: string]: CountryCurrency;
 }
 
-// Main Country interface matching REST Countries API response
 export interface Country {
   name: CountryName;
   capital?: string[];
@@ -41,31 +39,4 @@ export interface Country {
   cioc?: string; // International Olympic Committee country code
 }
 
-// API Response type
 export type CountriesApiResponse = Country[];
-
-// Filter and Search Types
-export type Region = 'Africa' | 'Americas' | 'Asia' | 'Europe' | 'Oceania' | 'All';
-
-export type SortOption = 'name' | 'population' | 'area';
-
-export interface CountryFilters {
-  search: string;
-  region: Region;
-  sortBy: SortOption;
-  sortOrder: 'asc' | 'desc';
-}
-
-// Error types
-export interface ApiError {
-  message: string;
-  status?: number;
-}
-
-// Loading states
-export interface CountriesState {
-  data: Country[];
-  loading: boolean;
-  error: ApiError | null;
-  filters: CountryFilters;
-}

@@ -13,11 +13,13 @@ export const CountryList = ({
 
   if (countries.length === 0) {
     return (
-      <div className={`flex flex-col items-center justify-center py-12 ${className}`}>
-        <div className="text-xl text-muted-foreground mb-2">
+      <div
+        className={`flex flex-col items-center justify-center py-12 ${className}`}
+      >
+        <div className='text-xl text-muted-foreground mb-2'>
           No countries found
         </div>
-        <div className="text-sm text-muted-foreground">
+        <div className='text-sm text-muted-foreground'>
           Try searching for a different country, capital, or region
         </div>
       </div>
@@ -26,8 +28,7 @@ export const CountryList = ({
 
   return (
     <div className={className}>
-      {/* Grid Layout */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+      <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6'>
         {displayedCountries.map(country => (
           <CountryCard
             key={country.cca3}
@@ -38,14 +39,13 @@ export const CountryList = ({
         ))}
       </div>
 
-      {/* Show More Indicator */}
       {hasMoreCountries && (
-        <div className="text-center py-6">
-          <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 inline-block">
-            <p className="text-blue-700 font-medium">
+        <div className='text-center py-6'>
+          <div className='bg-blue-50 border border-blue-200 rounded-lg p-4 inline-block'>
+            <p className='text-blue-700 font-medium'>
               Showing first {maxItems} of {countries.length} results
             </p>
-            <p className="text-blue-600 text-sm mt-1">
+            <p className='text-blue-600 text-sm mt-1'>
               Use search or filters to narrow down results
             </p>
           </div>

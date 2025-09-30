@@ -23,7 +23,6 @@ export default defineConfig([
       globals: globals.browser,
     },
     rules: {
-      // TypeScript strict rules
       '@typescript-eslint/no-explicit-any': 'error',
       '@typescript-eslint/no-unused-vars': 'error',
       '@typescript-eslint/explicit-function-return-type': [
@@ -39,27 +38,22 @@ export default defineConfig([
       '@typescript-eslint/no-non-null-assertion': 'error',
       'prefer-const': 'error',
 
-      // Import/Export rules
       'no-duplicate-imports': 'error',
 
-      // Code quality rules
       'no-console': 'warn',
       'no-debugger': 'error',
       'no-alert': 'error',
       'no-commented-out-code': 'off',
 
-      // Function style rules
       'func-style': ['error', 'expression', { allowArrowFunctions: true }],
       'prefer-arrow-callback': ['error', { allowNamedFunctions: false }],
 
-      // React specific rules
       'react-hooks/exhaustive-deps': 'error',
       'react-refresh/only-export-components': [
         'warn',
         { allowConstantExport: true },
       ],
 
-      // Naming conventions
       '@typescript-eslint/naming-convention': [
         'error',
         {
@@ -81,7 +75,6 @@ export default defineConfig([
       ],
     },
   },
-  // Exception for shadcn/ui components
   {
     files: ['**/components/ui/**/*.{ts,tsx}'],
     rules: {

@@ -8,9 +8,4 @@ export type {
   CountryLanguages,
   CountryCurrencies,
   CountriesApiResponse,
-  Region,
-  SortOption,
-  CountryFilters,
-  ApiError,
-  CountriesState,
 } from './api-countries.type';
