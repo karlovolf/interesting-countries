@@ -1,5 +1,6 @@
 import { MapPin, Users, Globe, Banknote, MessageSquare } from 'lucide-react';
-import { Dialog, DialogContent } from '@/components/ui/dialog';
+import { Dialog, DialogContent, DialogTitle } from '@/components/ui/dialog';
+import { VisuallyHidden } from '@radix-ui/react-visually-hidden';
 import type { CountryDetailModalProps } from './country-detail-modal.type';
 
 export const CountryDetailModal = ({
@@ -40,6 +41,9 @@ export const CountryDetailModal = ({
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className='max-w-4xl max-h-[90vh] overflow-y-auto'>
+        <VisuallyHidden>
+          <DialogTitle>Country Details for {country.name.common}</DialogTitle>
+        </VisuallyHidden>
         <div className='bg-gradient-to-r from-slate-50 to-white p-6 border-b rounded-t-lg'>
           <div className='flex items-center gap-4'>
             <img
