@@ -25,7 +25,12 @@ export const filterCountriesBySearch = (
       country.region.toLowerCase().includes(lowercaseSearch) ||
       country.subregion?.toLowerCase().includes(lowercaseSearch);
 
-    return matchesName || matchesCapital || matchesRegion;
+    // Search in country codes
+    const matchesCodes =
+      country.cca2?.toLowerCase().includes(lowercaseSearch) ||
+      country.cca3?.toLowerCase().includes(lowercaseSearch);
+
+    return matchesName || matchesCapital || matchesRegion || matchesCodes;
   });
 };
 
