@@ -217,7 +217,7 @@ export const WorldMap = ({
         )}
       </div>
 
-      <div className='flex items-center justify-center gap-6 mt-1 mb-4 text-sm text-muted-foreground'>
+      <div className='flex flex-col sm:flex-row items-start sm:items-center justify-start sm:justify-center gap-3 sm:gap-6 px-4 pb-4 text-sm text-muted-foreground'>
         <div className='flex items-center gap-2'>
           <div className='w-3 h-3 bg-blue-500 rounded-full border shadow-sm'></div>
           <span>Matching countries ({filteredCountries.length})</span>
