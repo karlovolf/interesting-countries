@@ -40,13 +40,13 @@ export const CountryList = ({
       </div>
 
       {hasMoreCountries && (
-        <div className='text-center py-6'>
-          <div className='bg-blue-50 border border-blue-200 rounded-lg p-4 inline-block'>
-            <p className='text-blue-700 font-medium'>
+        <div className='text-center py-3'>
+          <div className='bg-gray-50 border border-gray-200 rounded-md px-3 py-2 inline-block'>
+            <p className='text-gray-700 text-sm'>
               Showing first {maxItems} of {countries.length} results
             </p>
-            <p className='text-blue-600 text-sm mt-1'>
-              Use search or filters to narrow down results
+            <p className='text-gray-500 text-xs mt-1'>
+              Use search or filters to refine
             </p>
           </div>
         </div>
